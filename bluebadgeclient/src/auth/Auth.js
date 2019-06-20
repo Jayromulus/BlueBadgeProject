@@ -20,10 +20,10 @@ const Auth = (props) => {
     return (
         <div className={classes.root}>
             <Grid container spacing={6}>
-                <Grid item xs="12" sm="6">
+                <Grid item xs={12} sm={6}>
                     <Login updateToken={props.updateToken} />
                 </Grid>
-                <Grid item xs="12" sm="6">
+                <Grid item xs={12} sm={6}>
                     <Signup updateToken={props.updateToken} />
                 </Grid>
             </Grid>

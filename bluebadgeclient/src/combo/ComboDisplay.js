@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(2),
         margin: 'auto',
-        maxWidth: 500,
+        // maxWidth: 500,
         margin: "2em auto"
     },
     image: {
@@ -29,46 +29,49 @@ const useStyles = makeStyles(theme => ({
         // overflow: 'hidden',
         wordWrap: 'break-word',
         fontSize: '1em'
+    },
+
+    comboStyle: {
+        wordWrap: 'break-word',
+        width: '80%',
+        marginRight: '1em'
     }
 }));
 
 const ComboDisplay = (props) => {
     const classes = useStyles()
     return (
-        <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <Grid container spacing={2}>
-          <Grid item>
-            <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src="../../assets/youtube.png" />
-            </ButtonBase>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  Standard license
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  Full resolution 1920x1080 • JPEG
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  ID: 1030114
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                  Remove
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle1">{props.combos.damage}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Paper>
-    </div>
+        <>
+            <Paper className={classes.paper}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm container>
+                        <Grid item sm={11} xs={12} container direction="column" spacing={2}>
+                            <section className={classes.comboStyle}>
+                                <Grid item xs>
+                                    {/* <Typography gutterBottom variant="subtitle1">
+                                    {props.combos.point}/{props.combos.partner}
+                                </Typography> */}
+                                    <Typography variant="body1" gutterBottom>
+                                        {props.combos.route}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary">
+                                        {props.combos.charSpec}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="body2" style={{ cursor: 'pointer' }}>
+                                        Remove
+                                </Typography>
+                                </Grid>
+                            </section>
+                        </Grid>
+                        <Grid item sm={1} xs={12} >
+                            <Typography variant="subtitle1">Damage: {props.combos.damage}</Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Paper>
+        </>
     )
 }
 

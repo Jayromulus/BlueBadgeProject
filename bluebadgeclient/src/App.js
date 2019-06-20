@@ -5,36 +5,33 @@ import Navbar from './sitebar/Sitebar';
 import './App.css';
 
 function App() {
-  const [selectedCharacter, setSelectedCharacter] = useState('');
-  const [sessionToken, setSessionToken] = useState('');
-
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      setSessionToken(localStorage.getItem('token'));
-    }
-  }, [])
+  const [sessionToken, setSessionToken] = useState(undefined);
 
   const updateToken = (newToken) => {
     localStorage.setItem('token', newToken);
     setSessionToken(newToken);
-    console.log(newToken)
   }
 
   const clearToken = () => {
     localStorage.clear();
-    setSessionToken('');
+    setSessionToken(undefined);
   }
 
+  const [selected, setSelected] = useState('')
   const protectedViews = () => {
     return (sessionToken === localStorage.getItem('token') ? 
             <div>
               <Navbar 
-                setSelectedCharacter={setSelectedCharacter} 
-                clearToken={clearToken}/>
+                clearToken={clearToken}
+                setSelected={setSelected}
+                />
               <Combos 
-                selectedCharacter={selectedCharacter}/>
+                selected={selected}
+                />
             </div> 
-            : <Auth updateToken={updateToken} />)
+            : <Auth 
+                updateToken={updateToken} 
+                />)
   }
 
   return (

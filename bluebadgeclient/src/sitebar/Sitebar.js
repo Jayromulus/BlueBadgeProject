@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import CharSel from './characterSelect';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,13 +8,22 @@ import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
     navImg: {
-        height: '5em',
+        height: '6em',
         marginTop: '1em'
     },
+
+    navStyle: {
+        marginRight: '1em'
+    },
+
+    logout: {
+        marginBottom: 'auto'
+    }
 });
 
 export default function TemporaryDrawer(props) {
     //   const classes = useStyles();
+    const [imageSource, setImageSource] = useState('')
     const [state, setState] = React.useState({
         right: true
     });
@@ -26,21 +35,24 @@ export default function TemporaryDrawer(props) {
 
         setState({ ...state, 'right': open });
     };
-
+    
     const sideList = () => (
-        <CharSel setState={setState} state={state} />
+        <CharSel 
+            setImageSource={setImageSource}
+            setState={setState} 
+            state={state}
+            setSelected={props.setSelected}
+            />
         // <h1>helo</h1>
     );
 
     const classes = useStyles();
     return (
         <Grid container spacing={4}>
-            <Grid item xs="8">
-            </Grid>
-            <Grid item >
-                <Typography align='right'>
-                    <Button onClick={props.clearToken} color="danger">Logout</Button>
-                    <img alt="selectedchar" src='http://www.dustloop.com/wiki/images/5/59/BBTag_Makoto_Icon.png' className={classes.navImg} onClick={toggleDrawer('right', true)} />
+            <Grid item xs>
+                <Typography className={classes.navStyle} align='right'>
+                    <Button className={classes.logout} onClick={props.clearToken}>Logout</Button>
+                    <img alt="selectedchar" src={imageSource} className={classes.navImg} onClick={toggleDrawer('right', true)} />
                     <Drawer anchor="right" open={state.right} onClose={toggleDrawer('right', false)}>
                         {sideList('right')}
                     </Drawer>

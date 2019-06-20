@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 
+
 const useStyles = makeStyles(() => ({
     bbStyle: {
         textAlign: 'center',
@@ -31,7 +32,7 @@ const useStyles = makeStyles(() => ({
         backgroundColor: 'transparent'
     },
     imgStyle: {
-        height: '7em'
+        height: '16vh'
     }
 }))
 
@@ -55,6 +56,10 @@ const bbcast = [
     'http://www.dustloop.com/wiki/images/3/3a/BBTag_Tager_Icon.png'
 ]
 
+const bbChar = [
+    'Azrael', 'Es', 'Hakumen', 'Hazama', 'Izayoi', 'Jin', 'Jubei', 'Mai', 'Makoto', 'NaotoK', 'Nine', 'Noel', 'Nu', 'Platinum', 'Rachel', 'Tager'
+]
+
 const pacast = [
     'http://www.dustloop.com/wiki/images/7/75/BBTag_Aegis_Icon.png',
     'http://www.dustloop.com/wiki/images/4/41/BBTag_Akihiko_Icon.png',
@@ -67,6 +72,10 @@ const pacast = [
     'http://www.dustloop.com/wiki/images/1/14/BBTag_Yosuke_Icon.png',
     'http://www.dustloop.com/wiki/images/2/22/BBTag_Yu_Icon.png',
     'http://www.dustloop.com/wiki/images/a/aa/BBTag_Yukiko_Icon.png'
+]
+
+const paChar = [
+    'Aegis', 'Akihiko', 'Chie', 'Kanji', 'Labrys', 'Mitsuru', 'NaotoS', 'Teddie', 'Yosuke', 'Yu', 'Yukiko'
 ]
 
 const unicast = [
@@ -83,6 +92,10 @@ const unicast = [
     'http://www.dustloop.com/wiki/images/c/ce/BBTag_Yuzuriha_Icon.png'
 ]
 
+const uniChar = [
+    'Carmine', 'Gordeau', 'Hyde', 'Linne', 'Merkava', 'Mika', 'Orie', 'Seth', 'Vatista', 'Waldstein', 'Yuzuriha'
+]
+
 const rwbycast = [
     'http://www.dustloop.com/wiki/images/7/76/BBTag_Blake_Icon.png',
     'http://www.dustloop.com/wiki/images/a/a0/BBTag_Ruby_Icon.png',
@@ -90,19 +103,56 @@ const rwbycast = [
     'http://www.dustloop.com/wiki/images/7/78/BBTag_Yang_Icon.png'
 ]
 
+const rwbyChar = [
+    'Blake', 'Ruby', 'Weiss', 'Yang'
+]
+
 const ahcast = [
     'http://www.dustloop.com/wiki/images/2/23/BBTag_Heart_Icon.png'
 ]
 
+const ahChar = [
+    'Heart'
+]
+
+
 const MappedCast = (props) => {
+
+    // maybe put the function to grab a character name here?
+
+    const handleChange = (character, link) => {
+        sessionStorage.setItem('charID', character);
+        props.setImageSource(link)
+        sessionStorage.getItem('charID').substring(0, 2) === 'bb' ? 
+            sessionStorage.setItem('character', bbChar[sessionStorage.getItem('charID').substring(2)]) :
+        sessionStorage.getItem('charID').substring(0, 2) === 'pa' ? 
+            sessionStorage.setItem('character', paChar[sessionStorage.getItem('charID').substring(2)]) :
+        sessionStorage.getItem('charID').substring(0, 3) === 'uni' ?
+            sessionStorage.setItem('character', uniChar[sessionStorage.getItem('charID').substring(3)]) :
+        sessionStorage.getItem('charID').substring(0, 4) === 'rwby' ?
+            sessionStorage.setItem('character', rwbyChar[sessionStorage.getItem('charID').substring(4)]) :
+            sessionStorage.setItem('character', ahChar[sessionStorage.getItem('charID').substring(2)])
+
+        console.log('image source: ',link);
+        console.log('id: ',sessionStorage.getItem('charID'));
+        console.log('character: ', sessionStorage.getItem('character'))
+    }
+    
     const classes = useStyles();
     return (
         <section>
             <div className={classes.bbStyle}>
                 {bbcast.map((link, index) => {
-                    // console.log(char)
-                    // props.fetchCombos(); 
-                    return (<button onClick={() => {props.setState({ ...props.state, 'right': false })}} className={classes.buttonStyles} key={index}>
+                    return (<button
+                        onClick={() => {
+                            // console.log(this)
+                            handleChange('bb' + index, link)
+                            props.setState({ ...props.state, 'right': false });
+                        }}
+                        // data-character={'bb' + index}
+                        className={classes.buttonStyles}
+                        value={'bb'+index}
+                        key={index}>
                         <img className={classes.imgStyle} src={link} alt={index} /></button>)
                 })}
             </div>
@@ -110,7 +160,14 @@ const MappedCast = (props) => {
                 {pacast.map((link, index) => {
                     // console.log(char)
                     // props.fetchCombos(); 
-                    return (<button onClick={() => {props.setState({ ...props.state, 'right': false })}} className={classes.buttonStyles} key={index}>
+                    return (<button
+                        onClick={() => { 
+                            props.setState({ ...props.state, 'right': false }) 
+                            handleChange('pa' + index, link)
+                        }}
+                        className={classes.buttonStyles}
+                        value={'pa'+index}
+                        key={index}>
                         <img className={classes.imgStyle} src={link} alt={index} /></button>)
                 })}
             </div>
@@ -118,7 +175,14 @@ const MappedCast = (props) => {
                 {unicast.map((link, index) => {
                     // console.log(char)
                     // props.fetchCombos(); 
-                    return (<button onClick={() => {props.setState({ ...props.state, 'right': false })}} className={classes.buttonStyles} key={index}>
+                    return (<button
+                        onClick={() => {
+                            props.setState({ ...props.state, 'right': false });
+                            handleChange('uni' + index, link)
+                        }}
+                        className={classes.buttonStyles}
+                        value={'uni'+index}
+                        key={index}>
                         <img className={classes.imgStyle} src={link} alt={index} /></button>)
                 })}
             </div>
@@ -126,7 +190,14 @@ const MappedCast = (props) => {
                 {rwbycast.map((link, index) => {
                     // console.log(char)
                     // props.fetchCombos(); 
-                    return (<button onClick={() => {props.setState({ ...props.state, 'right': false })}} className={classes.buttonStyles} key={index}>
+                    return (<button
+                        onClick={() => {
+                            props.setState({ ...props.state, 'right': false });
+                            handleChange('rwby' + index, link)
+                        }}
+                        className={classes.buttonStyles}
+                        value={'rwby'+index}
+                        key={index}>
                         <img className={classes.imgStyle} src={link} alt={index} /></button>)
                 })}
             </div>
@@ -134,7 +205,14 @@ const MappedCast = (props) => {
                 {ahcast.map((link, index) => {
                     // console.log(char)
                     // props.fetchCombos(); 
-                    return (<button onClick={() => {props.setState({ ...props.state, 'right': false })}} className={classes.buttonStyles} key={index}>
+                    return (<button
+                        onClick={() => {
+                            props.setState({ ...props.state, 'right': false });
+                            handleChange('ah' + index, link)
+                        }}
+                        className={classes.buttonStyles}
+                        value={'ah'+index}
+                        key={index}>
                         <img className={classes.imgStyle} src={link} alt={index} /></button>)
                 })}
             </div>
