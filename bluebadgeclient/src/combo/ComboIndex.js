@@ -15,24 +15,27 @@ const useStyles = makeStyles({
     postStyle: {
         textAlign: 'center',
         margin: 'auto'
+    },
+
+    noneYet: {
+        padding: '2em',
+        
+        // maxWidth: 500,
+        margin: "2em auto"
     }
 });
 
 const Combos = (props) => {
     const classes = useStyles();
     const [combos, setCombos] = useState([{ id: 0, counterHit: false, createdAt: '', addNoted: '', charSpec: '', owner: '', partner: '', point: '', route: '', updatedAt: '', video: '', damage: 0 }]);
-    //local
-    const [point, setPoint] = useState('');
-    const [partner, setPartner] = useState('');
+    
 
     //triggers whem local vars are changed
-    useEffect(() => { fetchCombos() }, [point, partner])
+    useEffect(() => { fetchCombos() }, [props.selected])
 
     const fetchCombos = () => {
-        setPoint(sessionStorage.getItem('character'));
-        setPartner('Solo');
-        console.log('point and partner',point, partner);
-        let url = `http://localhost:4000/route/${point}/${partner}`;
+        let url = `http://localhost:4000/route/${props.selected}/solo`;
+        console.log('selected',props.selected)
 
         fetch(url, {
             headers: {
@@ -71,7 +74,17 @@ const Combos = (props) => {
                             </Grid>
                         </Grid>
                     </Paper>
-                    {combos[0] !== undefined ? <>{combos.map((data, index) => { return <ComboDisplay combos={data} key={index}/> })}</> : 'No Combos Yet'}
+                    {combos[0] !== undefined ? 
+                        <>
+                            {combos.map((data, index) => { return <ComboDisplay combos={data} key={index}/> })}
+                        </> : 
+                        <Paper>
+                            <Grid item xs={12} sm container>
+                                <Grid item xs>
+                                    <Typography variant="h3" className={classes.noneYet} gutterBottom>No Combos Yet</Typography>
+                                </Grid>
+                            </Grid>
+                        </Paper>}
                 </Grid>
                 <Grid item xs></Grid>
             </Grid>

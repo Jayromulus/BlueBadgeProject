@@ -3,15 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-    },
     paper: {
         padding: theme.spacing(2),
-        margin: 'auto',
+        
         // maxWidth: 500,
         margin: "2em auto"
     },
@@ -33,8 +29,8 @@ const useStyles = makeStyles(theme => ({
 
     comboStyle: {
         wordWrap: 'break-word',
-        width: '80%',
-        marginRight: '1em'
+        width: '92.5%',
+        paddingRight: '1em'
     }
 }));
 
@@ -51,7 +47,7 @@ const ComboDisplay = (props) => {
                                     {/* <Typography gutterBottom variant="subtitle1">
                                     {props.combos.point}/{props.combos.partner}
                                 </Typography> */}
-                                    <Typography variant="body1" gutterBottom>
+                                    <Typography variant="h4" >
                                         {props.combos.route}
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary">

@@ -18,42 +18,51 @@ const useStyles = makeStyles({
 
     logout: {
         marginBottom: 'auto'
+    },
+    selectedStyling: {
+        margin: '.75em 1em',
+        color: 'white',
+        textShadow: '1px 1px 5px black',
+        width:'100%'
     }
 });
 
 export default function TemporaryDrawer(props) {
     //   const classes = useStyles();
     const [imageSource, setImageSource] = useState('')
-    const [state, setState] = React.useState({
-        right: true
-    });
+    const [state, setState] = useState(true);
 
     const toggleDrawer = (open) => event => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
 
-        setState({ ...state, 'right': open });
+        setState(open);
     };
-    
+
     const sideList = () => (
-        <CharSel 
+        <CharSel
             setImageSource={setImageSource}
-            setState={setState} 
+            setState={setState}
             state={state}
             setSelected={props.setSelected}
-            />
+            setSecond={props.setSecond}
+        />
         // <h1>helo</h1>
     );
 
     const classes = useStyles();
     return (
         <Grid container spacing={4}>
+            <Grid item xs={6}>
+                <Typography className={classes.selectedStyling} variant="h3">{props.selected}{props.second !== 'solo' && props.second !== 'Solo' ? <React.Fragment>/{props.second}</React.Fragment> : null }</Typography>
+            </Grid>
             <Grid item xs>
                 <Typography className={classes.navStyle} align='right'>
                     <Button className={classes.logout} onClick={props.clearToken}>Logout</Button>
-                    <img alt="selectedchar" src={imageSource} className={classes.navImg} onClick={toggleDrawer('right', true)} />
-                    <Drawer anchor="right" open={state.right} onClose={toggleDrawer('right', false)}>
+                    <img alt="selectedchar" src={imageSource} className={classes.navImg} onClick={toggleDrawer(true)} />
+                    {console.log('state:', state)}
+                    <Drawer anchor="right" open={state} onClose={toggleDrawer(false)}>
                         {sideList('right')}
                     </Drawer>
                 </Typography>

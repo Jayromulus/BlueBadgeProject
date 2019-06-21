@@ -57,7 +57,7 @@ const bbcast = [
 ]
 
 const bbChar = [
-    'Azrael', 'Es', 'Hakumen', 'Hazama', 'Izayoi', 'Jin', 'Jubei', 'Mai', 'Makoto', 'NaotoK', 'Nine', 'Noel', 'Nu', 'Platinum', 'Rachel', 'Tager'
+    'Azrael', 'Es', 'Hakumen', 'Hazama', 'Izayoi', 'Jin', 'Jubei', 'Mai', 'Makoto', 'Naoto Kurogane', 'Nine', 'Noel', 'Nu', 'Platinum', 'Rachel', 'Ragna', 'Tager'
 ]
 
 const pacast = [
@@ -75,7 +75,7 @@ const pacast = [
 ]
 
 const paChar = [
-    'Aegis', 'Akihiko', 'Chie', 'Kanji', 'Labrys', 'Mitsuru', 'NaotoS', 'Teddie', 'Yosuke', 'Yu', 'Yukiko'
+    'Aegis', 'Akihiko', 'Chie', 'Kanji', 'Labrys', 'Mitsuru', 'Naoto Shirogane', 'Teddie', 'Yosuke', 'Yu', 'Yukiko'
 ]
 
 const unicast = [
@@ -117,25 +117,25 @@ const ahChar = [
 
 
 const MappedCast = (props) => {
-
+    
     // maybe put the function to grab a character name here?
 
     const handleChange = (character, link) => {
-        sessionStorage.setItem('charID', character);
+        // sessionStorage.setItem('charID', character);
         props.setImageSource(link)
-        sessionStorage.getItem('charID').substring(0, 2) === 'bb' ? 
-            sessionStorage.setItem('character', bbChar[sessionStorage.getItem('charID').substring(2)]) :
-        sessionStorage.getItem('charID').substring(0, 2) === 'pa' ? 
-            sessionStorage.setItem('character', paChar[sessionStorage.getItem('charID').substring(2)]) :
-        sessionStorage.getItem('charID').substring(0, 3) === 'uni' ?
-            sessionStorage.setItem('character', uniChar[sessionStorage.getItem('charID').substring(3)]) :
-        sessionStorage.getItem('charID').substring(0, 4) === 'rwby' ?
-            sessionStorage.setItem('character', rwbyChar[sessionStorage.getItem('charID').substring(4)]) :
-            sessionStorage.setItem('character', ahChar[sessionStorage.getItem('charID').substring(2)])
+        character.substring(0, 2) === 'bb' ? 
+            props.setSelected(bbChar[character.substring(2)]) :
+        character.substring(0, 2) === 'pa' ? 
+            props.setSelected(paChar[character.substring(2)]) :
+        character.substring(0, 3) === 'uni' ?
+            props.setSelected(uniChar[character.substring(3)]) :
+        character.substring(0, 4) === 'rwby' ?
+            props.setSelected(rwbyChar[character.substring(4)]) :
+            props.setSelected(ahChar[character.substring(2)])
 
         console.log('image source: ',link);
-        console.log('id: ',sessionStorage.getItem('charID'));
-        console.log('character: ', sessionStorage.getItem('character'))
+        console.log('id: ',character);
+        // console.log('character: ', sessionStorage.getItem('character'))
     }
     
     const classes = useStyles();
@@ -147,7 +147,7 @@ const MappedCast = (props) => {
                         onClick={() => {
                             // console.log(this)
                             handleChange('bb' + index, link)
-                            props.setState({ ...props.state, 'right': false });
+                            props.setState(false);
                         }}
                         // data-character={'bb' + index}
                         className={classes.buttonStyles}
@@ -162,7 +162,7 @@ const MappedCast = (props) => {
                     // props.fetchCombos(); 
                     return (<button
                         onClick={() => { 
-                            props.setState({ ...props.state, 'right': false }) 
+                            props.setState(false) 
                             handleChange('pa' + index, link)
                         }}
                         className={classes.buttonStyles}
@@ -177,7 +177,7 @@ const MappedCast = (props) => {
                     // props.fetchCombos(); 
                     return (<button
                         onClick={() => {
-                            props.setState({ ...props.state, 'right': false });
+                            props.setState(false);
                             handleChange('uni' + index, link)
                         }}
                         className={classes.buttonStyles}
@@ -192,7 +192,7 @@ const MappedCast = (props) => {
                     // props.fetchCombos(); 
                     return (<button
                         onClick={() => {
-                            props.setState({ ...props.state, 'right': false });
+                            props.setState(false);
                             handleChange('rwby' + index, link)
                         }}
                         className={classes.buttonStyles}
@@ -207,7 +207,7 @@ const MappedCast = (props) => {
                     // props.fetchCombos(); 
                     return (<button
                         onClick={() => {
-                            props.setState({ ...props.state, 'right': false });
+                            props.setState(false);
                             handleChange('ah' + index, link)
                         }}
                         className={classes.buttonStyles}
