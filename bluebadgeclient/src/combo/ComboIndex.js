@@ -4,17 +4,13 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography'
 import ComboDisplay from './ComboDisplay';
+import ComboPost from './ComboPost'
 // import youtube from '../assets/youtube.png'
 import './combos.css';
 
 const useStyles = makeStyles({
     root: {
         flexGrow: 1,
-    },
-
-    postStyle: {
-        textAlign: 'center',
-        margin: 'auto'
     },
 
     noneYet: {
@@ -34,7 +30,7 @@ const Combos = (props) => {
     useEffect(() => { fetchCombos() }, [props.selected])
 
     const fetchCombos = () => {
-        let url = `http://localhost:4000/route/${props.selected}/solo`;
+        let url = `http://localhost:4000/route/${props.selected}/Solo`;
         console.log('selected',props.selected)
 
         fetch(url, {
@@ -63,9 +59,7 @@ const Combos = (props) => {
                             <Grid item xs={12} sm container>
                                 <Grid item xs={11} container direction="column" className={classes.comboStyle} spacing={2}>
                                     <Grid item xs>
-                                        <Typography variant="h3" className={classes.postStyle} gutterBottom>
-                                            <i>Post your own</i>
-                                        </Typography>
+                                        <ComboPost selected={props.selected}/>
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={1} >

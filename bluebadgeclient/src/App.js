@@ -20,28 +20,39 @@ function App() {
   const [selected, setSelected] = useState('Azrael')
   const [second, setSecond] = useState('Solo')
   const protectedViews = () => {
-    return (sessionToken === localStorage.getItem('token') ? 
-            <div>
-              <Navbar 
-                clearToken={clearToken}
-                selected={selected}
-                setSelected={setSelected}
-                second={second}
-                setSecond={setSecond}
-                />
-              <Combos 
-                selected={selected}
-                second={second}
-                />
-            </div> 
-            : <Auth 
-                updateToken={updateToken} 
-                />)
+    return (sessionToken === localStorage.getItem('token') ?
+      <div>
+        <Navbar
+          clearToken={clearToken}
+          selected={selected}
+          setSelected={setSelected}
+          second={second}
+          setSecond={setSecond}
+        />
+        <Combos
+          selected={selected}
+          second={second}
+        />
+      </div>
+      : <Auth
+        updateToken={updateToken}
+      />)
   }
 
   return (
     <div>
-      {protectedViews()}
+      {/* {protectedViews()} */}
+      <Navbar
+        clearToken={clearToken}
+        selected={selected}
+        setSelected={setSelected}
+        second={second}
+        setSecond={setSecond}
+      />
+      <Combos
+        selected={selected}
+        second={second}
+      />
     </div>
   );
 }

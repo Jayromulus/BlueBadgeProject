@@ -13,18 +13,20 @@ const useStyles = makeStyles({
     },
 
     navStyle: {
-        marginRight: '1em'
+        paddingRight: '1em'
     },
 
     logout: {
-        marginBottom: 'auto'
+        marginBottom: 'auto',
+        marginLeft: '2em'
     },
     selectedStyling: {
         margin: '.75em 1em',
         color: 'white',
         textShadow: '1px 1px 5px black',
         width:'100%'
-    }
+    },
+    
 });
 
 export default function TemporaryDrawer(props) {
@@ -53,13 +55,18 @@ export default function TemporaryDrawer(props) {
 
     const classes = useStyles();
     return (
-        <Grid container spacing={4}>
+        <Grid container spacing={2}>
             <Grid item xs={6}>
                 <Typography className={classes.selectedStyling} variant="h3">{props.selected}{props.second !== 'solo' && props.second !== 'Solo' ? <React.Fragment>/{props.second}</React.Fragment> : null }</Typography>
             </Grid>
+            <Grid item xs={4}>
+            <Typography align='right'>
+                <Button className={classes.logout} onClick={props.clearToken}>Logout</Button>
+                <Button className={classes.logout} onClick={props.clearToken}>Profile</Button>
+            </Typography>
+            </Grid>
             <Grid item xs>
                 <Typography className={classes.navStyle} align='right'>
-                    <Button className={classes.logout} onClick={props.clearToken}>Logout</Button>
                     <img alt="selectedchar" src={imageSource} className={classes.navImg} onClick={toggleDrawer(true)} />
                     {console.log('state:', state)}
                     <Drawer anchor="right" open={state} onClose={toggleDrawer(false)}>

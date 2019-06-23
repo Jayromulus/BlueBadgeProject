@@ -60,8 +60,8 @@ router.get('/', validateSession, (req, res) =>{
 
 router.get('/:point/:partner', validateSession, (req, res) => {
     main = req.params.point[0].toUpperCase() + req.params.point.substring(1);
-    sub = req.params.partner[0].toUpperCase() + req.params.partner.substring(1);
-    Combo.findAll({ where: { point: main, partner: sub } }).then(
+    // sub = req.params.partner[0].toUpperCase() + req.params.partner.substring(1);
+    Combo.findAll({ where: { point: main} }).then(
         creatSuccess = (combos) => {
             res.status(200).json({
                 combos: combos

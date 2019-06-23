@@ -61,8 +61,8 @@ const ComboDisplay = (props) => {
                                 </Grid>
                             </section>
                         </Grid>
-                        <Grid item sm={1} xs={12} >
-                            <Typography variant="subtitle1">Damage: {props.combos.damage}</Typography>
+                        <Grid item sm={1} xs={12}>
+                            <Typography variant="h5">Damage: {props.combos.damage}</Typography>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -72,21 +72,3 @@ const ComboDisplay = (props) => {
 }
 
 export default ComboDisplay
-
-// <>
-//             <Grid container spacing={2} >
-//                 <Grid item sm={3}>
-//                     <h1 className={classes.names}>{props.combos.point}</h1>
-//                     <h6 className={classes.names}>{props.combos.partner}</h6>
-//                 </Grid>
-//                 <Grid item sm></Grid>
-//                 <Grid item sm={4}>
-//                     <h3>help me</h3>
-//                 </Grid>
-//             </Grid>
-//             <Grid container spacing={2}>
-//                 <Grid item xs>
-//                     <p>{props.combos.route}</p>
-//                 </Grid>
-//             </Grid>
-//         </>
