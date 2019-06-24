@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
-
+import TextField from '@material-ui/core/TextField'
 import PostCombo from './postComponents/PostCombo'
 import CounterHit from './postComponents/CounterHit'
 import ReasonanceBlaze from './postComponents/ReasonanceBlaze';
@@ -91,6 +91,23 @@ const ComboPost = (props) => {
                     <Partner localPoint={localPoint} setLocalPartner={setLocalPartner}/>
                     {/* Character Specific */}
                     <CharSpec setLocalCharSpec={setLocalCharSpec}/>
+                    {/* Video Link */}
+                    <TextField 
+                        onChange={(e) => {setLocalLink(e.target.value)}}
+                        label="Video Link"
+                        type="text"
+                        value={localLink}
+                        variant="outlined"
+                    />
+                    {/* Additional Notes */}
+                    <TextField 
+                        onChange={(e) => {setLocalNotes(e.target.value)}}
+                        label="Additional Notes"
+                        type="text"
+                        value={localLink}
+                        variant="outlined"
+                    />
+
 
                     <Button onClick={(e) =>{console.log('Combo:',localCombo, '\nCounterHit:', localCH, '\nReasonance:', localRB, '\nPoint:', localPoint, '\nPartner:', localPartner, '\nCharacter Specific:', localCharSpec)}}>log values</Button>
                 </Paper>
