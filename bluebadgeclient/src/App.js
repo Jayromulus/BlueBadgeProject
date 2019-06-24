@@ -30,6 +30,8 @@ function App() {
           setSecond={setSecond}
         />
         <Combos
+          sessionToken={sessionToken}
+          setSelected={setSelected}
           selected={selected}
           second={second}
         />
@@ -41,8 +43,8 @@ function App() {
 
   return (
     <div>
-      {/* {protectedViews()} */}
-      <Navbar
+      {protectedViews()}
+      {/* <Navbar
         clearToken={clearToken}
         selected={selected}
         setSelected={setSelected}
@@ -52,7 +54,7 @@ function App() {
       <Combos
         selected={selected}
         second={second}
-      />
+      /> */}
     </div>
   );
 }

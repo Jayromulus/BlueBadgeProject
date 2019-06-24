@@ -30,6 +30,7 @@ const Combos = (props) => {
     useEffect(() => { fetchCombos() }, [props.selected])
 
     const fetchCombos = () => {
+        if(props.selected !== '') {
         let url = `http://localhost:4000/route/${props.selected}/Solo`;
         console.log('selected',props.selected)
 
@@ -44,7 +45,7 @@ const Combos = (props) => {
             text => setCombos(text.combos)
         ).catch(
             err => console.log(err)
-        )
+        )}
     }
 
     // console.log(combos[0])
@@ -59,7 +60,7 @@ const Combos = (props) => {
                             <Grid item xs={12} sm container>
                                 <Grid item xs={11} container direction="column" className={classes.comboStyle} spacing={2}>
                                     <Grid item xs>
-                                        <ComboPost selected={props.selected}/>
+                                        <ComboPost setSelected={props.setSelected} sessionToken={props.sessionToken} selected={props.selected}/>
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={1} >

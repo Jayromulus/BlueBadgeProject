@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField'
 import PostCombo from './postComponents/PostCombo'
 import CounterHit from './postComponents/CounterHit'
 import ReasonanceBlaze from './postComponents/ReasonanceBlaze';
-import Partner from'./postComponents/Partner'
+import Partner from './postComponents/Partner'
 import CharSpec from './postComponents/CharSpec';
 
 const useStyles = makeStyles(theme => ({
@@ -47,11 +47,13 @@ const ComboPost = (props) => {
     const [localCombo, setLocalCombo] = useState('');
     const [localCH, setLocalCH] = useState(false);
     const [localRB, setLocalRB] = useState(false);
+    const [localCorner, setCorner] = useState(false)
     const localPoint = props.selected;
     const [localPartner, setLocalPartner] = useState('Solo');
-    const [localCharSpec, setLocalCharSpec] = useState([]);
+    const [localCharSpec, setLocalCharSpec] = useState(['Universal']);
     const [localLink, setLocalLink] = useState('');
     const [localNotes, setLocalNotes] = useState('');
+    const [localDamage, setLocalDamage] = useState(0);
 
 
     // Open the modal
@@ -64,9 +66,34 @@ const ComboPost = (props) => {
         setOpen(false);
     };
 
-    
-    
-    
+
+    const postRoute = (e) => {
+        e.preventDefault();
+        fetch('http://localhost:4000/route/new', {
+            method: 'POST',
+            body: JSON.stringify({
+                combo: {
+                    route: localCombo,
+                    point: localPoint,
+                    counterHit: localCH,
+                    partner: localPartner,
+                    video: localLink,
+                    charSpec: localCharSpec,
+                    addNotes: localNotes,
+                    damage: localDamage,
+                    corner: localCorner,
+                    reasonance: localRB
+                }
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': props.sessionToken
+            })
+        })
+        .then(res => res.json())
+        .then(logdata => {console.log(logdata);let sel = props.selected; props.setSelected(''); props.setSelected(sel)})
+    }
+
 
     const classes = useStyles()
     return (
@@ -82,34 +109,41 @@ const ComboPost = (props) => {
             >
                 <Paper style={modalStyle} className={classes.paper}>
                     {/* Route Input */}
-                    <PostCombo selected={props.selected} localCombo={localCombo} setLocalCombo={setLocalCombo}/>
+                    <PostCombo selected={props.selected} localCombo={localCombo} setLocalCombo={setLocalCombo} />
                     {/* Counter Hit */}
-                    <CounterHit localCH={localCH} setLocalCH={setLocalCH}/>
+                    <CounterHit localCH={localCH} setLocalCH={setLocalCH} />
                     {/* Reasonance Blaze */}
-                    <ReasonanceBlaze localRB={localRB} setLocalRB={setLocalRB}/>
+                    <ReasonanceBlaze localRB={localRB} setLocalRB={setLocalRB} />
                     {/* Partner */}
-                    <Partner localPoint={localPoint} setLocalPartner={setLocalPartner}/>
+                    <Partner localPoint={localPoint} setLocalPartner={setLocalPartner} />
                     {/* Character Specific */}
-                    <CharSpec setLocalCharSpec={setLocalCharSpec}/>
+                    <CharSpec setLocalCharSpec={setLocalCharSpec} />
                     {/* Video Link */}
-                    <TextField 
-                        onChange={(e) => {setLocalLink(e.target.value)}}
+                    <TextField
+                        onChange={(e) => { setLocalLink(e.target.value) }}
                         label="Video Link"
                         type="text"
                         value={localLink}
                         variant="outlined"
                     />
                     {/* Additional Notes */}
-                    <TextField 
-                        onChange={(e) => {setLocalNotes(e.target.value)}}
+                    <TextField
+                        onChange={(e) => { setLocalNotes(e.target.value) }}
                         label="Additional Notes"
                         type="text"
-                        value={localLink}
+                        value={localNotes}
+                        variant="outlined"
+                    />
+                    {/* Damage */}
+                    <TextField
+                        onChange={(e) => { setLocalDamage(e.target.value) }}
+                        label="Damage"
+                        type="text"
+                        value={localDamage}
                         variant="outlined"
                     />
 
-
-                    <Button onClick={(e) =>{console.log('Combo:',localCombo, '\nCounterHit:', localCH, '\nReasonance:', localRB, '\nPoint:', localPoint, '\nPartner:', localPartner, '\nCharacter Specific:', localCharSpec)}}>log values</Button>
+                    <Button onClick={(e) => { postRoute(e) }}>log values</Button>
                 </Paper>
             </Modal>
         </React.Fragment>
