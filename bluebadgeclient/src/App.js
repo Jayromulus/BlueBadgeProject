@@ -6,6 +6,7 @@ import './App.css';
 
 function App() {
   const [sessionToken, setSessionToken] = useState(undefined);
+  const [user, setUser] = useState('');
 
   const updateToken = (newToken) => {
     localStorage.setItem('token', newToken);
@@ -15,6 +16,7 @@ function App() {
   const clearToken = () => {
     localStorage.clear();
     setSessionToken(undefined);
+    setUser('');
   }
 
   const [selected, setSelected] = useState('Azrael')
@@ -28,6 +30,7 @@ function App() {
           setSelected={setSelected}
           second={second}
           setSecond={setSecond}
+          user={user}
         />
         <Combos
           sessionToken={sessionToken}
@@ -38,6 +41,7 @@ function App() {
       </div>
       : <Auth
         updateToken={updateToken}
+        setUser={setUser}
       />)
   }
 

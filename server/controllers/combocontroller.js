@@ -46,11 +46,11 @@ router.delete('/delete/:id', validateSession, (req, res) => {
     )
 })
 
-router.get('/', validateSession, (req, res) =>{
-    Combo.findAll().then(
+router.get('/:username', validateSession, (req, res) =>{
+    Combo.findAll({where: {owner: req.params.username}}).then(
         createSuccess = (combos) => {
             res.status(200).json({
-                message: 'all combos',
+                message: `all combos by${req.params.username}`,
                 combos: combos
             })
         },

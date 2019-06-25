@@ -49,6 +49,7 @@ const Signup = (props) => {
 
     let handleSubmit = (event) => {
         event.preventDefault();
+        props.setUser(username)
         fetch('http://localhost:4000/user/signup', {
             method: 'POST',
             body: JSON.stringify({ user: { username: username, password: password } }),

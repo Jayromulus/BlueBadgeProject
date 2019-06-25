@@ -47,7 +47,7 @@ const ComboPost = (props) => {
     const [localCombo, setLocalCombo] = useState('');
     const [localCH, setLocalCH] = useState(false);
     const [localRB, setLocalRB] = useState(false);
-    const [localCorner, setCorner] = useState(false)
+    const [localCorner, setCorner] = useState(false) //SET THIS SOMEWHERE
     const localPoint = props.selected;
     const [localPartner, setLocalPartner] = useState('Solo');
     const [localCharSpec, setLocalCharSpec] = useState(['Universal']);
@@ -143,7 +143,7 @@ const ComboPost = (props) => {
                         variant="outlined"
                     />
 
-                    <Button onClick={(e) => { postRoute(e) }}>log values</Button>
+                    <Button onClick={(e) => { postRoute(e); handleClose() }}>log values</Button>
                 </Paper>
             </Modal>
         </React.Fragment>

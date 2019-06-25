@@ -19,12 +19,12 @@ const Auth = (props) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Grid container spacing={6}>
+            <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
-                    <Login updateToken={props.updateToken} />
+                    <Login setUser={props.setUser} updateToken={props.updateToken} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Signup updateToken={props.updateToken} />
+                    <Signup setUser={props.setUser} updateToken={props.updateToken} />
                 </Grid>
             </Grid>
         </div>

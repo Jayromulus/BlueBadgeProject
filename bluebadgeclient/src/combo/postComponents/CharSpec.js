@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -19,43 +19,52 @@ const rwbyChar = [
 const ahChar = [
     'Heart'
 ]
+
 const CharSpec = (props) => {
-    let [ charArr, setCharArr ] = useState(['Universal'])
+    let [charArr, setCharArr] = useState(['Universal'])
     let [universal, setUniversal] = useState(true);
-    
+
+    useEffect(() => {
+        props.setLocalCharSpec(charArr)
+    }, [charArr])
+
     const handleClick = (e) => {
         let name = e.target.name;
-        if(name === 'universal' && universal === true) {
+        if (name === 'universal' && universal === true) {
             setUniversal(false);
             let newArr = Array.from(charArr);
             newArr.shift();
             setCharArr(newArr);
-        console.log('top:',charArr)
+            console.log('top:', charArr)
 
         } else if (name === 'universal' && universal === false) {
             setUniversal(true);
             setCharArr(['Universal', ...charArr])
-        console.log('else if:',charArr)
+            console.log('else if:', charArr)
 
         } else {
-            if(charArr.includes(e.target.value)) {
+            if (charArr.includes(null)) {
                 let newArr = Array.from(charArr);
                 newArr.splice(newArr.indexOf(e.target.value), 1);
                 setCharArr(newArr);
-        console.log('else:',charArr)
-                
+                console.log('else:', charArr)
+            } else if (charArr.includes(e.target.value)) {
+                let newArr = Array.from(charArr);
+                newArr.splice(newArr.indexOf(e.target.value), 1);
+                setCharArr(newArr);
+                console.log('else:', charArr)
+
             } else {
                 setCharArr([...charArr, e.target.value])
             }
         }
-        console.log('before set:',charArr)
-        props.setLocalCharSpec(charArr)
+        console.log('before set:', charArr)
     }
-    
+
     return (
         <div>
             <button onClick={(e) => console.log(charArr)}></button>
-            <FormGroup aria-label="position" name="position"  row>
+            <FormGroup aria-label="position" name="position" row>
                 <Grid item xs sm={12}>
                     <FormControlLabel
                         value={universal}
